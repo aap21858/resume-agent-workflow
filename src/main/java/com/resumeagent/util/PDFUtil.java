@@ -1,5 +1,6 @@
 package com.resumeagent.util;
 
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -26,7 +27,7 @@ public class PDFUtil {
      * Extract text content from a PDF file
      */
     public String extractText(File pdfFile) throws IOException {
-        try (PDDocument document = PDDocument.load(pdfFile)) {
+        try (PDDocument document = Loader.loadPDF(pdfFile)) {
             PDFTextStripper stripper = new PDFTextStripper();
             return stripper.getText(document);
         }
@@ -36,7 +37,8 @@ public class PDFUtil {
      * Extract text content from a PDF input stream
      */
     public String extractText(InputStream inputStream) throws IOException {
-        try (PDDocument document = PDDocument.load(inputStream)) {
+        byte[] bytes = inputStream.readAllBytes();
+        try (PDDocument document = Loader.loadPDF(bytes)) {
             PDFTextStripper stripper = new PDFTextStripper();
             return stripper.getText(document);
         }
