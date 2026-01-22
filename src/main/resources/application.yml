@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: resume-agent-workflow
+  
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:}
+      chat:
+        options:
+          model: ${SPRING_AI_OPENAI_MODEL:gpt-4-turbo}
+          temperature: 0.7
+  
+  servlet:
+    multipart:
+      max-file-size: ${RESUME_AGENT_PDF_MAX_FILE_SIZE:5MB}
+      max-request-size: ${RESUME_AGENT_PDF_MAX_FILE_SIZE:5MB}
+  
+  thymeleaf:
+    cache: false
+
+resume-agent:
+  storage:
+    base-path: ${RESUME_AGENT_STORAGE_BASE_PATH:./data}
+  pdf:
+    max-file-size: ${RESUME_AGENT_PDF_MAX_FILE_SIZE:5242880}
+  workflow:
+    fit-score-threshold: ${RESUME_AGENT_WORKFLOW_FIT_SCORE_THRESHOLD:60}
+
+logging:
+  level:
+    com.resume.agent: DEBUG
+    org.springframework.ai: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
