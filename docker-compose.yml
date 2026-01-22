@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  resume-agent:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - RESUME_AGENT_STORAGE_BASE_PATH=/app/data
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
