@@ -88,7 +88,7 @@ public class FileStorageService {
         Files.createDirectories(dirPath);
         
         Path destination = dirPath.resolve(filename);
-        Files.copy(source, destination);
+        Files.copy(source, destination, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
         log.debug("Copied file from {} to {}", source, destination);
         return destination.toString();
     }

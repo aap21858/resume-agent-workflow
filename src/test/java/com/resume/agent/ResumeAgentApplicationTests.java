@@ -6,7 +6,7 @@ import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest
 @TestPropertySource(properties = {
-    "spring.ai.openai.api-key=test-key"
+    "openai.api-key=test-key"
 })
 class ResumeAgentApplicationTests {
 

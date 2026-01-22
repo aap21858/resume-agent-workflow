@@ -24,8 +24,8 @@ public class OpenAIClientService {
     private final String model;
     
     public OpenAIClientService(
-            @Value("${spring.ai.openai.api-key:}") String apiKey,
-            @Value("${spring.ai.openai.chat.options.model:gpt-4-turbo}") String model) {
+            @Value("${openai.api-key:}") String apiKey,
+            @Value("${openai.model:gpt-4-turbo}") String model) {
         this.model = model;
         
         if (apiKey == null || apiKey.isEmpty()) {
