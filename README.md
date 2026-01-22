@@ -278,6 +278,27 @@ mvn clean package
 java -jar target/resume-agent-workflow-1.0.0.jar
 ```
 
+## Known Limitations & Future Enhancements
+
+### Current Limitations
+1. **No database**: All data is stored in JSON files on disk
+2. **Basic skill extraction**: Uses simple keyword matching for candidate skill detection
+3. **Single-user**: No authentication or multi-tenancy support
+4. **Limited PDF generation**: Generated resumes have basic formatting
+5. **No async processing**: Long-running AI operations block the request
+
+### Planned Enhancements
+1. Add database support (PostgreSQL/MongoDB) for production use
+2. Implement user authentication and authorization
+3. Add more sophisticated NLP for skill extraction
+4. Enhance PDF generation with templates and better formatting
+5. Implement background job processing for AI operations
+6. Add metrics and monitoring dashboards
+7. Support for multiple resume formats (Word, TXT, HTML)
+8. Implement caching for API responses
+9. Add rate limiting for API endpoints
+10. Support for batch processing of multiple candidates
+
 ## License
 
 MIT License
