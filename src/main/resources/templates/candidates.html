@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidates</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Resume Agent Workflow</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/clients">Clients</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/candidates">Candidates</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/upload">Upload Resume</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/analyze">Match & Analyze</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/interview-prep">Interview Prep</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Candidates</h2>
+            <a href="/upload" class="btn btn-success">Upload New Resume</a>
+        </div>
+
+        <div class="row">
+            <div class="col-12" th:if="${candidates.isEmpty()}">
+                <p class="text-muted">No candidates yet. Upload a resume to get started!</p>
+            </div>
+            <div class="col-md-6 mb-3" th:each="candidate : ${candidates}">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${candidate.name}">Name</h5>
+                        <p class="card-text">
+                            <strong>Email:</strong> <span th:text="${candidate.email}">email</span><br>
+                            <strong>Experience:</strong> <span th:text="${candidate.yearsOfExperience}">0</span> years<br>
+                            <strong>Skills:</strong> <span th:text="${#strings.listJoin(candidate.skills, ', ')}">skills</span><br>
+                            <strong>Resume:</strong> <span th:text="${candidate.originalResumeFilename}">filename</span>
+                        </p>
+                        <small class="text-muted">
+                            Uploaded: <span th:text="${#temporals.format(candidate.uploadedAt, 'yyyy-MM-dd HH:mm')}">date</span><br>
+                            ID: <span th:text="${candidate.id}">id</span>
+                        </small>
+                        <div class="mt-2">
+                            <a th:href="@{'/api/resume/original/' + ${candidate.id}}" class="btn btn-sm btn-primary">Download Resume</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
