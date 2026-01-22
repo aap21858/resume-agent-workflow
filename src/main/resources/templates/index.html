@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Agent Workflow System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 30px; text-align: center; }
+        h1 { color: #667eea; font-size: 2.5em; margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 1.1em; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+        .card h2 { color: #667eea; margin-bottom: 15px; font-size: 1.5em; }
+        .card p { color: #666; line-height: 1.6; margin-bottom: 20px; }
+        .btn { display: inline-block; padding: 12px 30px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; transition: background 0.3s; font-weight: 600; }
+        .btn:hover { background: #5568d3; }
+        .features { background: white; padding: 30px; border-radius: 10px; margin-top: 30px; }
+        .features h3 { color: #667eea; margin-bottom: 20px; }
+        .features ul { list-style: none; }
+        .features li { padding: 10px 0; border-bottom: 1px solid #eee; color: #666; }
+        .features li:before { content: "✓ "; color: #667eea; font-weight: bold; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Resume Agent Workflow System</h1>
+            <p class="subtitle">AI-Powered Candidate Resume Optimization for Client Interviews</p>
+        </div>
+        
+        <div class="card-grid">
+            <div class="card">
+                <h2>📋 Client Requirements</h2>
+                <p>Input and manage client job requirements. The AI will parse and structure them automatically.</p>
+                <a href="/requirements" class="btn">Manage Requirements</a>
+            </div>
+            
+            <div class="card">
+                <h2>📤 Upload Resume</h2>
+                <p>Upload candidate resumes in PDF format for processing and analysis.</p>
+                <a href="/upload" class="btn">Upload Resume</a>
+            </div>
+            
+            <div class="card">
+                <h2>⚙️ Execute Workflow</h2>
+                <p>Run the complete workflow to match candidates with client requirements.</p>
+                <a href="/workflow" class="btn">Run Workflow</a>
+            </div>
+            
+            <div class="card">
+                <h2>📊 View Analysis</h2>
+                <p>View detailed fit scores, analysis results, and recommendations.</p>
+                <a href="/analysis" class="btn">View Results</a>
+            </div>
+            
+            <div class="card">
+                <h2>📈 Dashboard</h2>
+                <p>Get an overview of all workflows, candidates, and processing status.</p>
+                <a href="/dashboard" class="btn">Open Dashboard</a>
+            </div>
+            
+            <div class="card">
+                <h2>🔗 API Access</h2>
+                <p>Access the REST API for programmatic workflow execution.</p>
+                <a href="/api/workflow/health" class="btn">Check API</a>
+            </div>
+        </div>
+        
+        <div class="features">
+            <h3>Key Features</h3>
+            <ul>
+                <li>AI-powered requirement parsing using GPT-4</li>
+                <li>Automated resume analysis and fit scoring (0-100 scale)</li>
+                <li>Intelligent resume modification to highlight relevant skills</li>
+                <li>Personalized interview preparation materials</li>
+                <li>PDF processing for reading and generating resumes</li>
+                <li>File-based storage with JSON data management</li>
+                <li>RESTful API for integration</li>
+                <li>Modern web interface for easy management</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

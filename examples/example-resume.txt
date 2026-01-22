@@ -1,0 +1,89 @@
+# Example Sample Resume (Text Format)
+
+**JOHN DOE**
+Email: john.doe@email.com | Phone: +1-555-0123 | LinkedIn: linkedin.com/in/johndoe
+Location: San Francisco, CA
+
+---
+
+## PROFESSIONAL SUMMARY
+Results-driven Java Developer with 4+ years of experience building scalable backend systems and REST APIs. Proficient in Java, Spring Boot, and AWS cloud technologies. Strong background in microservices architecture and agile development methodologies. Passionate about writing clean, efficient code and delivering high-quality software solutions.
+
+---
+
+## TECHNICAL SKILLS
+**Programming Languages:** Java (17, 11, 8), Python, JavaScript  
+**Frameworks & Libraries:** Spring Boot, Spring MVC, Spring Data JPA, Hibernate  
+**Cloud & DevOps:** AWS (EC2, S3, Lambda, RDS), Docker, Jenkins, Git, Maven  
+**Databases:** PostgreSQL, MySQL, MongoDB, Redis  
+**Tools & Technologies:** Microservices, REST APIs, Kafka, RabbitMQ, JUnit, Mockito  
+**Other:** Agile/Scrum, System Design, OOP, Design Patterns
+
+---
+
+## PROFESSIONAL EXPERIENCE
+
+### Senior Software Engineer
+**TechCorp Solutions** | San Francisco, CA | Jan 2022 - Present
+- Designed and developed 15+ RESTful microservices using Java 17 and Spring Boot 3.x, serving 2M+ daily active users
+- Migrated monolithic application to microservices architecture, improving scalability and reducing deployment time by 60%
+- Implemented event-driven architecture using Apache Kafka for real-time data processing
+- Optimized database queries and application performance, reducing API response time by 40%
+- Mentored junior developers and conducted code reviews to maintain code quality standards
+- Deployed and managed services on AWS (EC2, S3, RDS, Lambda) with 99.9% uptime
+
+### Java Developer
+**Innovative Systems Inc.** | San Jose, CA | Jun 2020 - Dec 2021
+- Built and maintained backend services for e-commerce platform using Java 11 and Spring Boot 2.x
+- Developed RESTful APIs consumed by web and mobile applications with 500K+ users
+- Implemented authentication and authorization using Spring Security and JWT
+- Created comprehensive unit and integration tests achieving 85% code coverage
+- Collaborated with frontend team to design and implement new features
+- Participated in daily standups and sprint planning in agile environment
+
+### Junior Java Developer  
+**StartUp Tech** | San Francisco, CA | Aug 2019 - May 2020
+- Developed backend features for SaaS application using Java 8 and Spring Framework
+- Worked with PostgreSQL database for data persistence and query optimization
+- Implemented CI/CD pipelines using Jenkins and GitLab
+- Fixed bugs and performed code refactoring to improve maintainability
+- Participated in code reviews and pair programming sessions
+
+---
+
+## EDUCATION
+
+### Bachelor of Science in Computer Science
+**University of California, Berkeley** | Berkeley, CA | 2015 - 2019
+GPA: 3.7/4.0
+
+**Relevant Coursework:** Data Structures, Algorithms, Database Systems, Software Engineering, Web Development, Cloud Computing
+
+---
+
+## CERTIFICATIONS
+- AWS Certified Developer - Associate (2022)
+- Oracle Certified Professional: Java SE 11 Developer (2021)
+
+---
+
+## PROJECTS
+
+### E-Commerce Microservices Platform
+- Built a complete e-commerce platform with 8 microservices using Spring Boot and Docker
+- Implemented service discovery with Eureka, API gateway with Spring Cloud Gateway
+- Used MongoDB for product catalog and PostgreSQL for order management
+- Deployed on AWS ECS with auto-scaling and load balancing
+
+### Real-Time Analytics Dashboard
+- Developed real-time data processing pipeline using Spring Boot and Apache Kafka
+- Created REST APIs for dashboard visualization using React
+- Implemented caching layer with Redis for improved performance
+- Processed 100K+ events per minute with sub-second latency
+
+---
+
+## ADDITIONAL INFORMATION
+- **Languages:** English (Native), Spanish (Conversational)
+- **Interests:** Open source contribution, tech blogging, hiking
+- **GitHub:** github.com/johndoe (50+ repositories, 200+ stars)

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Execute Workflow - Resume Agent</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .header { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        h1 { color: #667eea; margin-bottom: 10px; }
+        .nav { margin-top: 15px; }
+        .nav a { color: #667eea; text-decoration: none; margin-right: 20px; }
+        .nav a:hover { text-decoration: underline; }
+        .form-container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 8px; color: #333; font-weight: 600; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; }
+        textarea { min-height: 150px; font-family: inherit; }
+        .checkbox-group { display: flex; align-items: center; }
+        .checkbox-group input { width: auto; margin-right: 10px; }
+        button { background: #667eea; color: white; padding: 15px 40px; border: none; border-radius: 5px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.3s; }
+        button:hover { background: #5568d3; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        .result { background: #f0f8ff; padding: 20px; border-radius: 5px; margin-top: 20px; display: none; }
+        .result.success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .result.error { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .loading { text-align: center; padding: 20px; display: none; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #667eea; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚙️ Execute Workflow</h1>
+            <p>Match candidates with client requirements using AI</p>
+            <div class="nav">
+                <a href="/">← Home</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/analysis">View Analysis</a>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <form id="workflowForm">
+                <div class="form-group">
+                    <label for="clientRequirement">Client Job Requirement *</label>
+                    <textarea id="clientRequirement" name="clientRequirement" required 
+                              placeholder="Example: Intermediate Java developer with Java 17, Spring Boot 3.x, and AWS experience. Must have 3+ years of backend development."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="candidateResumePath">Candidate Resume Path *</label>
+                    <input type="text" id="candidateResumePath" name="candidateResumePath" required 
+                           placeholder="/path/to/resume.pdf or use the Upload page first">
+                    <small>Upload a resume first using the <a href="/upload">Upload page</a>, then paste the path here</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="clientId">Client ID (Optional)</label>
+                    <input type="text" id="clientId" name="clientId" 
+                           placeholder="Auto-generated if not provided">
+                </div>
+                
+                <div class="form-group">
+                    <label for="candidateId">Candidate ID (Optional)</label>
+                    <input type="text" id="candidateId" name="candidateId" 
+                           placeholder="Auto-generated if not provided">
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="generateModifiedResume" name="generateModifiedResume" checked>
+                    <label for="generateModifiedResume">Generate Modified Resume</label>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="generateInterviewPrep" name="generateInterviewPrep" checked>
+                    <label for="generateInterviewPrep">Generate Interview Prep</label>
+                </div>
+                
+                <button type="submit">Execute Workflow</button>
+            </form>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Processing workflow... This may take 30-60 seconds</p>
+            </div>
+            
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('workflowForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const form = e.target;
+            const submitBtn = form.querySelector('button');
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            
+            // Show loading, hide result
+            loading.style.display = 'block';
+            result.style.display = 'none';
+            submitBtn.disabled = true;
+            
+            // Prepare request
+            const requestData = {
+                clientRequirement: form.clientRequirement.value,
+                candidateResumePath: form.candidateResumePath.value,
+                clientId: form.clientId.value || null,
+                candidateId: form.candidateId.value || null,
+                generateModifiedResume: form.generateModifiedResume.checked,
+                generateInterviewPrep: form.generateInterviewPrep.checked
+            };
+            
+            try {
+                const response = await fetch('/api/workflow/execute', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestData)
+                });
+                
+                const data = await response.json();
+                
+                // Show result
+                loading.style.display = 'none';
+                result.style.display = 'block';
+                
+                if (data.success) {
+                    result.className = 'result success';
+                    result.innerHTML = `
+                        <h3>✅ Workflow Completed Successfully!</h3>
+                        <p><strong>Execution Time:</strong> ${data.executionTimeMs}ms</p>
+                        <p><strong>Fit Score:</strong> ${data.analysisResult?.fitScore || 'N/A'}/100</p>
+                        <p><strong>Recommend for Interview:</strong> ${data.analysisResult?.recommendForInterview ? 'Yes' : 'No'}</p>
+                        ${data.modifiedResumePath ? `<p><strong>Modified Resume:</strong> ${data.modifiedResumePath}</p>` : ''}
+                        <h4>Full Response:</h4>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    result.className = 'result error';
+                    result.innerHTML = `
+                        <h3>❌ Workflow Failed</h3>
+                        <p>${data.message}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                loading.style.display = 'none';
+                result.style.display = 'block';
+                result.className = 'result error';
+                result.innerHTML = `
+                    <h3>❌ Error</h3>
+                    <p>${error.message}</p>
+                `;
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
